@@ -5,6 +5,10 @@ import (
 )
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	if len(m.branches) == 0 {
+		return m, tea.Quit
+	}
+
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -35,11 +39,17 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		// Delete branches on enter
 		case "enter":
-			// branches := []string{}
+			if len(m.selected) == 0 {
+				return m, nil
+			}
 
-			// for i := range m.selected {
-			// 	branches = append(branches, m.branches[i])
-			// }
+			branches := []string{}
+
+			for i := range m.selected {
+				branches = append(branches, m.branches[i])
+			}
+
+			DeleteBranches(branches)
 
 			m.deleted = true
 			return m, tea.Quit

@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var (
 	titleFg    = MakeFgStyle("81")
+	errorFg    = MakeFgStyle("160")
 	successFg  = MakeFgStyle("155")
 	selectedFg = MakeFgStyle("123")
 	hoveringFg = MakeFgStyle("225")
@@ -12,7 +15,11 @@ var (
 )
 
 func (m Model) View() string {
-	s := titleFg("Select Git Branches") + "\n\n"
+	if len(m.branches) == 0 {
+		return errorFg("No branches to delete") + "\n"
+	}
+
+	s := formatTitle()
 	s += formatBranchList(m)
 	s += formatHelp()
 
@@ -21,6 +28,10 @@ func (m Model) View() string {
 	}
 
 	return s
+}
+
+func formatTitle() string {
+	return titleFg("Select Git Branches") + "\n\n"
 }
 
 func formatBranchList(m Model) string {
@@ -58,5 +69,5 @@ func formatBranchList(m Model) string {
 }
 
 func formatHelp() string {
-	return subtleFg("\nj/k, up/down: select") + dot + subtleFg("enter: choose") + dot + subtleFg("q, esc: quit") + "\n"
+	return subtleFg("\nj/k, up/down: select") + dot + subtleFg("space: choose") + dot + subtleFg("enter: delete") + dot + subtleFg("q, esc: quit") + "\n"
 }

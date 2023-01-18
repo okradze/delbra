@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -11,7 +12,8 @@ func ParseBranches() []string {
 	out, err := cmd.CombinedOutput()
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Print(string(out))
+		os.Exit(1)
 	}
 
 	lines := strings.Split(string(out), "\n")
