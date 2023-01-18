@@ -26,8 +26,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor++
 			}
 
-		// The "enter" key and the spacebar (a literal space) toggle
-		// the selected state for the item that the cursor is pointing at.
+		// the spacebar (a literal space) toggle
 		case " ":
 			_, ok := m.selected[m.cursor]
 			if ok {
@@ -36,8 +35,15 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.selected[m.cursor] = struct{}{}
 			}
 
+		// Delete branches on enter
 		case "enter":
-			fmt.Println("Deleted branches")
+			branches := []string{}
+
+			for i := range m.selected {
+				branches = append(branches, m.branches[i])
+			}
+
+			fmt.Println(branches)
 		}
 
 	}
