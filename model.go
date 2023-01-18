@@ -6,6 +6,7 @@ type Model struct {
 	branches []string
 	cursor   int
 	selected map[int]struct{}
+	deleted  bool
 }
 
 func (m Model) Init() tea.Cmd {
@@ -19,5 +20,6 @@ func InitialModel() Model {
 		branches: branches,
 		selected: make(map[int]struct{}),
 		cursor:   0,
+		deleted:  false,
 	}
 }

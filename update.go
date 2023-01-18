@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -37,13 +35,14 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		// Delete branches on enter
 		case "enter":
-			branches := []string{}
+			// branches := []string{}
 
-			for i := range m.selected {
-				branches = append(branches, m.branches[i])
-			}
+			// for i := range m.selected {
+			// 	branches = append(branches, m.branches[i])
+			// }
 
-			fmt.Println(branches)
+			m.deleted = true
+			return m, tea.Quit
 		}
 
 	}
