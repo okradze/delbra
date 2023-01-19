@@ -33,7 +33,7 @@ func (m Model) View() string {
 }
 
 func formatTitle() string {
-	return titleFg("\nWhich branches do you want to delete?") + "\n\n"
+	return "\n" + titleFg("Which branches do you want to delete?") + "\n\n"
 }
 
 func formatBranchList(m Model) string {
