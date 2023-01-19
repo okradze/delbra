@@ -11,38 +11,65 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
-		switch msg.String() {
-		// These keys should exit the program.
-		case "ctrl+c", "q", "esc":
-			return m, tea.Quit
+		return handleKey(m, msg)
+	}
 
-		// The "up" and "k" keys move the cursor up
-		case "up", "k":
-			if m.cursor > 0 {
-				m.cursor--
-			}
+	return m, nil
+}
 
-		// The "down" and "j" keys move the cursor down
-		case "down", "j":
-			if m.cursor < len(m.branches)-1 {
-				m.cursor++
-			}
+func handleKey(m Model, msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	switch msg.String() {
+	case "ctrl+c", "q", "esc":
+		return m, tea.Quit
 
-		// the spacebar (a literal space) toggle
-		case " ":
-			_, ok := m.selected[m.cursor]
-			if ok {
-				delete(m.selected, m.cursor)
-			} else {
-				m.selected[m.cursor] = struct{}{}
-			}
+	case "up", "k":
+		if m.cursor > 0 {
+			m.cursor--
+		}
 
-		// Delete branches on enter
-		case "enter":
-			if len(m.selected) == 0 {
-				return m, nil
-			}
+	case "down", "j":
+		if m.cursor < len(m.branches)-1 {
+			m.cursor++
+		}
 
+	case " ":
+		return handleSpaceKey(m)
+	case "enter":
+		return handleEnterKey(m)
+	default:
+		if m.showConfirmation {
+			m.confirmationInput, _ = m.confirmationInput.Update(msg)
+		}
+
+	}
+
+	return m, nil
+}
+
+func handleSpaceKey(m Model) (tea.Model, tea.Cmd) {
+	if m.showConfirmation {
+		return m, nil
+	}
+
+	_, ok := m.selected[m.cursor]
+	if ok {
+		delete(m.selected, m.cursor)
+	} else {
+		m.selected[m.cursor] = struct{}{}
+	}
+
+	return m, nil
+}
+
+func handleEnterKey(m Model) (tea.Model, tea.Cmd) {
+	if len(m.selected) == 0 {
+		return m, nil
+	}
+
+	if m.showConfirmation {
+		val := m.confirmationInput.Value()
+
+		if val == "y" {
 			branches := []string{}
 
 			for i := range m.selected {
@@ -50,11 +77,12 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 			DeleteBranches(branches)
-
 			m.deleted = true
-			return m, tea.Quit
 		}
 
+		return m, tea.Quit
+	} else {
+		m.showConfirmation = true
 	}
 
 	return m, nil

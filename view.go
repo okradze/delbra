@@ -5,13 +5,14 @@ import (
 )
 
 var (
-	titleFg    = MakeFgStyle("81")
-	errorFg    = MakeFgStyle("160")
-	successFg  = MakeFgStyle("155")
-	selectedFg = MakeFgStyle("123")
-	hoveringFg = MakeFgStyle("225")
-	subtleFg   = MakeFgStyle("241")
-	dot        = ColorFg(" • ", "236")
+	titleFg     = MakeFgStyle("81")
+	lightTextFg = MakeFgStyle("253")
+	errorFg     = MakeFgStyle("160")
+	successFg   = MakeFgStyle("155")
+	selectedFg  = MakeFgStyle("123")
+	hoveringFg  = MakeFgStyle("225")
+	subtleFg    = MakeFgStyle("241")
+	dot         = ColorFg(" • ", "236")
 )
 
 func (m Model) View() string {
@@ -21,6 +22,7 @@ func (m Model) View() string {
 
 	s := formatTitle()
 	s += formatBranchList(m)
+	s += formatConfirmation(m)
 	s += formatHelp()
 
 	if m.deleted {
@@ -63,6 +65,18 @@ func formatBranchList(m Model) string {
 		}
 
 		s += "\n"
+	}
+
+	return s
+}
+
+func formatConfirmation(m Model) string {
+	s := ""
+
+	if m.showConfirmation {
+		s += "\n"
+		s += lightTextFg("Are you sure you want to delete the selected branches? (y/n) ")
+		s += m.confirmationInput.View() + "\n"
 	}
 
 	return s
