@@ -54,7 +54,13 @@ func formatBranchList(m Model) string {
 			checkbox = "[x]"
 		}
 
-		line := fmt.Sprintf("%s %s %s", cursor, checkbox, branch)
+		merged := ""
+
+		if !branch.merged {
+			merged = errorFg("(not merged)")
+		}
+
+		line := fmt.Sprintf("%s %s %s %s", cursor, checkbox, branch.name, merged)
 
 		if checked {
 			s += selectedFg(line)

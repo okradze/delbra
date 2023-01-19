@@ -73,7 +73,7 @@ func handleEnterKey(m Model) (tea.Model, tea.Cmd) {
 			branches := []string{}
 
 			for i := range m.selected {
-				branches = append(branches, m.branches[i])
+				branches = append(branches, m.branches[i].name)
 			}
 
 			DeleteBranches(branches)

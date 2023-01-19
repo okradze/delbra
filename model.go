@@ -6,8 +6,13 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+type Branch struct {
+	name   string
+	merged bool
+}
+
 type Model struct {
-	branches          []string
+	branches          []Branch
 	cursor            int
 	selected          map[int]struct{}
 	showConfirmation  bool
@@ -24,10 +29,8 @@ func (m Model) Init() tea.Cmd {
 }
 
 func InitialModel() Model {
-	branches := ParseBranches()
-
 	return Model{
-		branches:          branches,
+		branches:          ParseBranches(),
 		selected:          make(map[int]struct{}),
 		cursor:            0,
 		deleted:           false,

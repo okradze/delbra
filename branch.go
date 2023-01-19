@@ -7,8 +7,7 @@ import (
 	"strings"
 )
 
-func ParseBranches() []string {
-	cmd := exec.Command("git", "branch")
+func parseGitBranchCommand(cmd *exec.Cmd, merged bool) []Branch {
 	out, err := cmd.CombinedOutput()
 
 	if err != nil {
@@ -17,7 +16,7 @@ func ParseBranches() []string {
 	}
 
 	lines := strings.Split(string(out), "\n")
-	branches := []string{}
+	branches := []Branch{}
 
 	for _, line := range lines {
 		// Exclude current working branch
@@ -26,19 +25,25 @@ func ParseBranches() []string {
 		}
 
 		line = strings.TrimSpace(line)
-		branches = append(branches, line)
+		branches = append(branches, Branch{name: line, merged: merged})
 	}
 
 	return branches
 }
 
+func ParseBranches() []Branch {
+	merged := parseGitBranchCommand(exec.Command("git", "branch", "--merged"), true)
+	notMerged := parseGitBranchCommand(exec.Command("git", "branch", "--no-merged"), false)
+	return append(merged, notMerged...)
+}
+
 func DeleteBranches(branches []string) {
 	for _, name := range branches {
-		cmd := exec.Command("git", "branch", "-d", name)
+		cmd := exec.Command("git", "branch", "-D", name)
 		out, err := cmd.CombinedOutput()
 
 		if err != nil {
-			fmt.Print(string(out))
+			fmt.Println(string(out))
 			return
 		}
 
