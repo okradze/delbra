@@ -16,18 +16,10 @@ var (
 )
 
 func (m Model) View() string {
-	if len(m.branches) == 0 {
-		return errorFg("No branches to delete") + "\n"
-	}
-
 	s := formatTitle()
 	s += formatBranchList(m)
 	s += formatConfirmation(m)
 	s += formatHelp()
-
-	if m.deleted {
-		s += successFg("\nAll selected branches deleted") + "\n"
-	}
 
 	return s
 }

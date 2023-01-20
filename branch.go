@@ -53,7 +53,5 @@ func DeleteBranches(branches []string) {
 			fmt.Println(string(out))
 			return
 		}
-
-		fmt.Print(string(out))
 	}
 }
