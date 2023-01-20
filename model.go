@@ -30,7 +30,7 @@ func (m Model) Init() tea.Cmd {
 
 func InitialModel() Model {
 	return Model{
-		branches:          ParseBranches(),
+		branches:          GetBranches(),
 		selected:          make(map[int]struct{}),
 		cursor:            0,
 		deleted:           false,

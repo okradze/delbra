@@ -5,10 +5,6 @@ import (
 )
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	if len(m.branches) == 0 {
-		return m, tea.Quit
-	}
-
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		return handleKey(m, msg)

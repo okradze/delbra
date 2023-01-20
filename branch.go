@@ -11,8 +11,8 @@ func parseGitBranchCommand(cmd *exec.Cmd, merged bool) []Branch {
 	out, err := cmd.CombinedOutput()
 
 	if err != nil {
-		fmt.Print(string(out))
-		os.Exit(1)
+		fmt.Print(errorFg(string(out)))
+		os.Exit(0)
 	}
 
 	lines := strings.Split(string(out), "\n")
@@ -31,10 +31,17 @@ func parseGitBranchCommand(cmd *exec.Cmd, merged bool) []Branch {
 	return branches
 }
 
-func ParseBranches() []Branch {
+func GetBranches() []Branch {
 	merged := parseGitBranchCommand(exec.Command("git", "branch", "--merged"), true)
 	notMerged := parseGitBranchCommand(exec.Command("git", "branch", "--no-merged"), false)
-	return append(merged, notMerged...)
+	branches := append(merged, notMerged...)
+
+	if len(branches) == 0 {
+		fmt.Println(errorFg("No branches to delete"))
+		os.Exit(0)
+	}
+
+	return branches
 }
 
 func DeleteBranches(branches []string) {
