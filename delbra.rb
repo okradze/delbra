@@ -5,21 +5,21 @@
 class Delbra < Formula
   desc "CLI to delete multiple local Git branches at once"
   homepage "https://github.com/okradze/delbra"
-  version "0.0.3"
+  version "0.0.4"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/okradze/delbra/releases/download/v0.0.3/delbra_Darwin_x86_64.tar.gz"
-      sha256 "2ece794cf24af0320c2844fb869d18cd80a37d70f5fce01cfe339e8ff49a6d1d"
+      url "https://github.com/okradze/delbra/releases/download/v0.0.4/delbra_Darwin_x86_64.tar.gz"
+      sha256 "3868d0cef87363947d03dc9461fe66a0270eace72004e0a210b4a2ec7ac0e08f"
 
       def install
         bin.install "delbra"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/okradze/delbra/releases/download/v0.0.3/delbra_Darwin_arm64.tar.gz"
-      sha256 "628f21dcedbe3179eef779c89b931fa5a8aac506a5a037134ed40d15c287209b"
+      url "https://github.com/okradze/delbra/releases/download/v0.0.4/delbra_Darwin_arm64.tar.gz"
+      sha256 "a4c6ec2f6efa49a00c7e15bc6360b4f6a7ff915e51ee934132bca38712178345"
 
       def install
         bin.install "delbra"
@@ -29,16 +29,16 @@ class Delbra < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/okradze/delbra/releases/download/v0.0.3/delbra_Linux_x86_64.tar.gz"
-      sha256 "629a9e2246911d9aef99fcbfe12c9ff77daa593547031263f65d04fbbdfd3bb5"
+      url "https://github.com/okradze/delbra/releases/download/v0.0.4/delbra_Linux_x86_64.tar.gz"
+      sha256 "b11cd31f31a0a83567add7603750d5107dc45c2480d7379070b6370968b1b9c2"
 
       def install
         bin.install "delbra"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/okradze/delbra/releases/download/v0.0.3/delbra_Linux_arm64.tar.gz"
-      sha256 "e6de0049209a0d7b0722c9453f573b48a70301303ed95c8f7088cb355a88075d"
+      url "https://github.com/okradze/delbra/releases/download/v0.0.4/delbra_Linux_arm64.tar.gz"
+      sha256 "93334c732619b04fd19b70383bdcd79350fe95c86da186ad556614f525423ca1"
 
       def install
         bin.install "delbra"
