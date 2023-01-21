@@ -4,17 +4,6 @@ import (
 	"fmt"
 )
 
-var (
-	titleFg     = MakeFgStyle("81")
-	lightTextFg = MakeFgStyle("253")
-	errorFg     = MakeFgStyle("160")
-	successFg   = MakeFgStyle("155")
-	selectedFg  = MakeFgStyle("123")
-	hoveringFg  = MakeFgStyle("225")
-	subtleFg    = MakeFgStyle("241")
-	dot         = ColorFg(" • ", "236")
-)
-
 func (m Model) View() string {
 	s := formatTitle()
 	s += formatBranchList(m)
