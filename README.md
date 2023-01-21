@@ -6,6 +6,15 @@ Interactive CLI tool that makes it comfortable to delete multiple local Git bran
 
 ![Demo](delbra.gif 'Demo')
 
+## Install:
+
+Using Brew:
+
+```bash
+brew tap okradze/delbra --custom-remote https://github.com/okradze/delbra.git
+brew install okradze/delbra/delbra
+```
+
 ## Usage:
 
 Run `delbra` in working directory of your Git repository.
