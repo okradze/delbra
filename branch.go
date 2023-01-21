@@ -7,6 +7,11 @@ import (
 	"strings"
 )
 
+type Branch struct {
+	name   string
+	merged bool
+}
+
 func parseGitBranchCommand(cmd *exec.Cmd, merged bool) []Branch {
 	out, err := cmd.CombinedOutput()
 

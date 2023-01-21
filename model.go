@@ -6,11 +6,6 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-type Branch struct {
-	name   string
-	merged bool
-}
-
 type Model struct {
 	branches          []Branch
 	cursor            int

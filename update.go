@@ -66,14 +66,7 @@ func handleEnterKey(m Model) (tea.Model, tea.Cmd) {
 		val := m.confirmationInput.Value()
 
 		if val == "y" {
-			branches := []string{}
-
-			for i := range m.selected {
-				branches = append(branches, m.branches[i].name)
-			}
-
-			DeleteBranches(branches)
-			m.deleted = true
+			return handleConfirmation(m)
 		}
 
 		return m, tea.Quit
@@ -82,4 +75,16 @@ func handleEnterKey(m Model) (tea.Model, tea.Cmd) {
 	}
 
 	return m, nil
+}
+
+func handleConfirmation(m Model) (tea.Model, tea.Cmd) {
+	branches := []string{}
+
+	for i := range m.selected {
+		branches = append(branches, m.branches[i].name)
+	}
+
+	DeleteBranches(branches)
+	m.deleted = true
+	return m, tea.Quit
 }
