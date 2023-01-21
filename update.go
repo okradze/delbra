@@ -71,6 +71,7 @@ func handleEnterKey(m Model) (tea.Model, tea.Cmd) {
 
 		return m, tea.Quit
 	} else {
+		m.confirmationInput = InitialConfirmationInputModel()
 		m.showConfirmation = true
 	}
 

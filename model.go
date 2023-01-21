@@ -25,12 +25,11 @@ func (m Model) Init() tea.Cmd {
 
 func InitialModel() Model {
 	return Model{
-		branches:          GetBranches(),
-		selected:          make(map[int]struct{}),
-		cursor:            0,
-		deleted:           false,
-		showConfirmation:  false,
-		confirmationInput: InitialConfirmationInputModel(),
+		branches:         GetBranches(),
+		selected:         make(map[int]struct{}),
+		cursor:           0,
+		deleted:          false,
+		showConfirmation: false,
 	}
 }
 
