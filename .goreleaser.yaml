@@ -35,3 +35,18 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+brews:
+  - name: delbra
+    homepage: 'https://github.com/okradze/delbra'
+    description: 'CLI to delete multiple local Git branches at once'
+    license: 'MIT'
+
+    tap:
+      owner: okradze
+      name: delbra
+      branch: main
+
+    commit_author:
+      name: Mirian Okradze
+      email: okradzemirian@gmail.com
